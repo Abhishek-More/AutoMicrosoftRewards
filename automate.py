@@ -53,11 +53,17 @@ def getRandomWord():
 
 def searchWord(driver):
     #Inserts word into search box and searches
-    try:
-        search = driver.find_element_by_class_name('b_searchbox')
-    except:
-        print("Could not find search bar")
-        quit()
+    tryCount = 3
+    while tryCount > 0:
+        try:
+            search = driver.find_element_by_class_name('b_searchbox')
+        except:
+            print("Could not find search bar, try:", abs(4 - tryCount))
+            time.sleep(5)
+            tryCount -= 1
+
+    if tryCount:
+        return 1
 
     word = getRandomWord()
 
@@ -65,7 +71,7 @@ def searchWord(driver):
     search.send_keys(word)
     search.send_keys(Keys.ENTER)
 
-def repSearch(driver, email,count):
+def repSearch(driver, count):
     #Searches repeatedly for specified count with one minute rest
     #Adds/Updates user points in database
     for i in range(count):
