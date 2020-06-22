@@ -6,3 +6,10 @@ Enter Microsoft account authentication information here
 data = {
     "<YOUR_USERNAME>": "<YOUR_PASSWORD>",
 }
+
+
+"""
+Enter the absolute path to the geckodriver:
+"""
+
+path = 'usr/local/bin/'
