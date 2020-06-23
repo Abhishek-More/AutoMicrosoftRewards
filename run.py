@@ -1,9 +1,13 @@
-from secret import data
-from automate import createDriver, authenticate, repSearch
+from secret import *
+from automate import *
+
+#Stores Email and Points after every search
+accData = []
 
 for email, password in data.items():
 
     driver = createDriver(False)
     authenticate(driver, email, password)
-    repSearch(driver, 30)
+    accData.append((email, repSearch(driver, 1)))
+    sendMail(emailAddress, emailPass, userEmail, accData)
     driver.quit()

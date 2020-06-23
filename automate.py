@@ -1,14 +1,17 @@
+from bs4 import BeautifulSoup
+import datetime
 from random_word import RandomWords
-import secrets
+from secrets import path
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+import smtplib
 import time
 import os
 
 def createDriver(headless=True):
     #Returns Firefox Webdriver
     try:
-        os.environ['PATH'] += os.pathsep + secrets.path
+        os.environ['PATH'] += os.pathsep + path
         options = webdriver.FirefoxOptions()
         if headless:
             options.add_argument('--headless')  #Uncomment to run headless
@@ -74,8 +77,43 @@ def searchWord(driver):
 def repSearch(driver, count):
     #Searches repeatedly for specified count with one minute rest
     #Adds/Updates user points in database
+
     for i in range(count):
         print("Search", i)
         searchWord(driver)
         time.sleep(10)
+
     print("***Completed Searches***")
+
+    points = scrapeInfo(driver)
+    return points
+
+
+def scrapeInfo(driver):
+    #Scrapes page and returns total user points
+
+    html = driver.page_source
+    soup = BeautifulSoup(html, 'lxml')
+    scores = soup.find_all(id='id_rc')
+    for score in scores:
+        return score.text
+
+def sendMail(email, password, userEmail, accData):
+    #Sends
+    with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
+        smtp.ehlo()
+        smtp.starttls()
+        smtp.ehlo()
+
+        smtp.login(email, password)
+
+        date = datetime.date.today()
+        subject = str(date)
+
+        body = ''
+        for data in accData:
+            body += f"{data[0]}: {data[1]} points\n"
+
+        msg = f'Subject: {subject}\n\n{body}'
+        smtp.sendmail(email, userEmail, msg)
+        print("***Sent Email***")
