@@ -99,7 +99,8 @@ def scrapeInfo(driver):
         return score.text
 
 def sendMail(email, password, userEmail, accData):
-    #Sends
+    #Sends Email containing emails and points
+
     with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
         smtp.ehlo()
         smtp.starttls()
@@ -108,7 +109,7 @@ def sendMail(email, password, userEmail, accData):
         smtp.login(email, password)
 
         date = datetime.date.today()
-        subject = str(date)
+        subject = f"AutoMicrosoftRewards: {date}"
 
         body = ''
         for data in accData:
