@@ -1,4 +1,5 @@
 from random_word import RandomWords
+import secrets
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
@@ -6,9 +7,8 @@ import os
 
 def createDriver(headless=True):
     #Returns Firefox Webdriver
-    #Change path to geckodriver below
     try:
-        os.environ['PATH'] += os.pathsep + "/usr/local/bin/"
+        os.environ['PATH'] += os.pathsep + secrets.path
         options = webdriver.FirefoxOptions()
         if headless:
             options.add_argument('--headless')  #Uncomment to run headless
