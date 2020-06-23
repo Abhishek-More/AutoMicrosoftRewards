@@ -57,13 +57,13 @@ def searchWord(driver):
     while tryCount > 0:
         try:
             search = driver.find_element_by_class_name('b_searchbox')
+            break
         except:
             print("Could not find search bar, try:", abs(4 - tryCount))
             time.sleep(5)
             tryCount -= 1
-
-    if tryCount:
-        return 1
+        if tryCount:
+            return 1
 
     word = getRandomWord()
 
