@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import datetime
+import random
 from random_word import RandomWords
 from secrets import path
 from selenium import webdriver
@@ -81,7 +82,7 @@ def repSearch(driver, count):
     for i in range(count):
         print("Search", i)
         searchWord(driver)
-        time.sleep(10)
+        time.sleep(random.randint(30,50))
 
     print("***Completed Searches***")
 

@@ -6,8 +6,9 @@ accData = []
 
 for email, password in data.items():
 
-    driver = createDriver(False)
+    driver = createDriver()
     authenticate(driver, email, password)
-    accData.append((email, repSearch(driver, 1)))
-    sendMail(emailAddress, emailPass, userEmail, accData)
+    accData.append((email, repSearch(driver, 30)))
     driver.quit()
+
+sendMail(emailAddress, emailPass, userEmail, accData)
