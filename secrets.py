@@ -10,6 +10,7 @@ data = {
 
 """
 Enter the absolute path to the geckodriver:
+Ensure the latest version of Firefox is installed: sudo apt-get install firefox
 """
 
 path = '/usr/local/bin/'
