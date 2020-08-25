@@ -30,6 +30,7 @@ def authenticate(driver, email, password):
     #Signs into Bing with email and password
     base = driver.current_url
     login = driver.find_element_by_class_name('id_button')
+    driver.find_element_by_id
     while driver.current_url == base:
         login.click()
 
@@ -43,6 +44,13 @@ def authenticate(driver, email, password):
     passwordField.send_keys(password)
     passwordField.send_keys(Keys.ENTER)
 
+    time.sleep(1)
+
+    try:
+        back = driver.find_element_by_id('idBtn_Back')
+        back.click()
+    except:
+        pass
     time.sleep(1)
 
 def getRandomWord():
