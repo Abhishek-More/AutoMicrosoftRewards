@@ -8,6 +8,9 @@ from selenium.webdriver.common.keys import Keys
 import smtplib
 import time
 import os
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import db
 
 def createDriver(headless=True):
     #Returns Firefox Webdriver
@@ -127,3 +130,16 @@ def sendMail(email, password, userEmail, accData):
         msg = f'Subject: {subject}\n\n{body}'
         smtp.sendmail(email, userEmail, msg)
         print("***Sent Email***")
+
+def writeData(email, points):
+    if "@gmail.com" in email:
+        email = email.replace("@gmail.com", "")
+    print(email)
+    cred = credentials.Certificate('autorewards.json')
+    firebase_admin.initialize_app(cred, {
+        'databaseURL': 'https://autorewards-92ae1.firebaseio.com/'
+    })
+    ref = db.reference()
+    users_ref = ref.child('accounts')
+
+    users_ref.update({email: str(points)})
