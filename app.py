@@ -3,16 +3,15 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 
+cred = credentials.Certificate('autorewards.json')
+firebase_admin.initialize_app(cred, {
+    'databaseURL': 'https://autorewards-92ae1.firebaseio.com/'
+})
 
 app = Flask('__main__')
 
 @app.route("/")
 def home():
-    cred = credentials.Certificate('autorewards.json')
-    firebase_admin.initialize_app(cred, {
-        'databaseURL': 'https://autorewards-92ae1.firebaseio.com/'
-    })
-
     ref = db.reference('accounts')
     result = ref.get()
 
