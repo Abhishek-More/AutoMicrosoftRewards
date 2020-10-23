@@ -4,3 +4,4 @@ lxml
 Random-Word
 flask
 firebase_admin
+gunicorn
