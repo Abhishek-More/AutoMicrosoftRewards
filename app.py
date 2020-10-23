@@ -4,8 +4,6 @@ from firebase_admin import credentials
 from firebase_admin import db
 
 
-
-
 app = Flask('__main__')
 
 @app.route("/")
