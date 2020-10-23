@@ -21,7 +21,7 @@ def home():
             accounts.append((key, value))
     string = ""
     for account in accounts:
-        string += str(account[0]) + ": " + str(account[1]) + "\n"
+        string += "<p>" + str(account[0]) + ": " + str(account[1]) + "</p>"
     return string
 
 if __name__ == '__main__':
